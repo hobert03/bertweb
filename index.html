@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quantum Tech Lab</title>
+
+<style>
+body{
+    margin:0;
+    background:#01040a;
+    color:white;
+    font-family:Segoe UI, Arial;
+    overflow-x:hidden;
+}
+
+/* =============================
+   3D 科技背景
+============================= */
+#bgCanvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-2;
+}
+
+/* 半透明科技層 */
+.overlay{
+    position:fixed;
+    width:100%;
+    height:100%;
+    backdrop-filter: blur(60px);
+    z-index:-1;
+}
+
+/* =============================
+   導航
+============================= */
+nav{
+    padding:18px;
+    text-align:center;
+    background:rgba(6,12,30,0.65);
+    backdrop-filter: blur(20px);
+    position:sticky;
+    top:0;
+    z-index:100;
+    letter-spacing:2px;
+}
+
+/* =============================
+   主標題
+============================= */
+.hero{
+    text-align:center;
+    padding:140px 20px 100px;
+}
+
+.hero h1{
+    font-size:60px;
+    background:linear-gradient(90deg,#00e5ff,#00ff9d,#00b7ff);
+    -webkit-background-clip:text;
+    color:transparent;
+    animation: glow 4s infinite alternate;
+}
+
+@keyframes glow{
+    from{filter:brightness(1);}
+    to{filter:brightness(1.6);}
+}
+
+/* =============================
+   卡片系統（玻璃科技風）
+============================= */
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:rgba(25,40,80,0.25);
+    border:1px solid rgba(0,255,255,0.1);
+    padding:28px;
+    border-radius:18px;
+    margin:30px 0;
+    transition:0.5s;
+    backdrop-filter: blur(18px);
+}
+
+.card:hover{
+    transform:translateY(-10px) scale(1.03);
+    box-shadow:
+    0 0 25px rgba(0,255,255,0.25),
+    inset 0 0 40px rgba(0,255,255,0.05);
+}
+
+/* =============================
+   按鈕
+============================= */
+.btn{
+    display:inline-block;
+    padding:14px 30px;
+    background:linear-gradient(90deg,#00e5ff,#00ff9d);
+    color:black;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:bold;
+    margin-top:25px;
+    transition:0.4s;
+}
+
+.btn:hover{
+    transform:scale(1.1);
+}
+
+/* =============================
+   Footer
+============================= */
+footer{
+    text-align:center;
+    padding:50px;
+    color:#444;
+}
+
+/* =============================
+   Mobile
+============================= */
+@media(max-width:768px){
+.hero h1{font-size:36px;}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="bgCanvas"></canvas>
+<div class="overlay"></div>
+
+<nav>
+Quantum Technology Explorer
+</nav>
+
+<section class="hero">
+<h1>Quantum Tech Lab</h1>
+<p>探索未來科技、AI、網絡與計算研究</p>
+<a class="btn" href="#research">進入研究區</a>
+</section>
+
+<section class="container" id="research">
+
+<div class="card">
+<h2>🧠 AI 技術探索</h2>
+<p>
+研究人工智能、機器學習與智能計算方向。
+未來可加入模型分析與技術分享文章。
+</p>
+</div>
+
+<div class="card">
+<h2>🌐 網絡技術分析</h2>
+<p>
+可記錄網絡架構、通信質量、延遲優化與系統性能研究。
+打造技術型知識庫。
+</p>
+</div>
+
+<div class="card">
+<h2>⚡ 個人技術空間</h2>
+<p>
+持續更新技術思想與研究成果。
+建立極客式研究型個人品牌網站。
+</p>
+</div>
+
+</section>
+
+<footer>
+Quantum Technology Lab © 2026
+</footer>
+
+<script>
+
+/* ===== 3D 粒子宇宙背景 ===== */
+
+const canvas = document.getElementById("bgCanvas");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+window.addEventListener("resize",resize);
+resize();
+
+let stars=[];
+
+for(let i=0;i<180;i++){
+    stars.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        z:Math.random()*2+0.2
+    });
+}
+
+function animate(){
+
+    ctx.fillStyle="#01040a";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle="rgba(0,255,255,0.8)";
+
+    stars.forEach(s=>{
+        s.y+=s.z;
+        if(s.y>canvas.height){
+            s.y=0;
+            s.x=Math.random()*canvas.width;
+        }
+
+        ctx.beginPath();
+        ctx.arc(s.x,s.y,s.z,0,Math.PI*2);
+        ctx.fill();
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+</script>
+
+</body>
+</html>
